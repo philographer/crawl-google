@@ -1,0 +1,57 @@
+service: crawl-google-trigger-notify
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  runtime: nodejs6.10
+  environment:
+    SERVICE_NAME: crawl-google
+    DYNAMODB_TABLE: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}
+    STAGE: ${opt:stage, self:provider.stage}
+    TRIGGER_FUNCTION: trigger
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: "arn:aws:lambda:${opt:region, self:provider.region}:*:function:*"
+
+functions:
+  trigger:
+    handler: crawl/trigger.trigger
+    events:
+      - http:
+          path: crawl
+          method: post
+          cors: true
+  crawlGoogle:
+    handler: crawl/crawlGoogle.crawlGoogle
+
+resources:
+  Resources:
+    CrawlDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Delete
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: startYear
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: startYear
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}

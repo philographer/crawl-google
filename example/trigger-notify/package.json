@@ -1,0 +1,10 @@
+{
+  "name": "trigger-notify",
+  "version": "1.0.0",
+  "description": "Serverless Image Crawling Trigger And Notify Service",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^2.0.3"
+  }
+}

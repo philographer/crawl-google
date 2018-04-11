@@ -1,0 +1,37 @@
+service: crawl-google-core
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  runtime: python2.7
+  environment:
+    SERVICE_NAME: crawl-google
+    DYNAMODB_TABLE: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}
+    STAGE: ${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+      Resource: "arn:aws:s3:::${self:provider.environment.SERVICE_NAME}/*"
+
+functions:
+  crawl:
+    handler: crawl/crawl.crawl
+    
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
