@@ -56,7 +56,7 @@ def sqs_send_msg(keyword):
     sqs_client.send_message(QueueUrl='https://sqs.ap-northeast-2.amazonaws.com/989300825295/crawl-queue', MessageBody=keyword)
     print "run sqs_send_msg success"
 
-def lambda_handler(event, context):
+def crawl(event, context):
     print "startYear: " + str(int(event['startYear']))
     search_keyword=str(unicode(event['keyword'])) # searching keyword
     startDate = date(int(event['startYear']), 1, 1) # start from 2008 ~
