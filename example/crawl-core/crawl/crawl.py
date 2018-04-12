@@ -15,7 +15,7 @@ AWS_ACCESS_KEY_ID = '' # Need To Insert or Use Env variables
 AWS_ACCESS_KEY_SECRET = '' # Need To Insert or Use Env variables
 # Fill in info on data to upload
 # destination bucket name
-bucket_name = 'crawl-mondrian'
+bucket_name = 'crawl-google'
 
 #max size in bytes before uploading in parts. between 1 and 5 GB recommended
 MAX_SIZE = 50 * 1000 * 1000
@@ -57,19 +57,19 @@ def sqs_send_msg(keyword):
     print "run sqs_send_msg success"
 
 def crawl(event, context):
-    print "startYear: " + str(int(event['startYear']))
+    startYearStr = event['startYear'];
+    print "startYear: " + str(int(startYearStr))
     search_keyword=str(unicode(event['keyword'])) # searching keyword
-    startDate = date(int(event['startYear']), 1, 1) # start from 2008 ~
-    endDate = date(int(event['startYear']), 12, 31) # end to 2018
-    google_crawler = GoogleImageCrawler(parser_threads=2, downloader_threads=4, storage={'root_dir': '/tmp/Google_'+str(startDate.year)})
-    google_crawler.crawl(keyword=search_keyword, max_num=1000,
-                        date_min=startDate, date_max=endDate,
-                        min_size=None, max_size=None)
+    filters = dict(
+        date=((int(startYearStr), 1, 1), (int(startYearStr), 12, 31)),
+    )
+    google_crawler = GoogleImageCrawler(parser_threads=2, downloader_threads=4, storage={'root_dir': '/tmp/Google_'+startYearStr})
+    google_crawler.crawl(keyword=search_keyword, max_num=1000, filters = filters)
 
     # Upload
     # source directory
-    sourceDir = '/tmp/Google_'+str(startDate.year)+'/'
+    sourceDir = '/tmp/Google_'+startYearStr+'/'
     # destination directory name (on s3)
-    destDir = search_keyword + '/Google_' + str(startDate.year)
+    destDir = search_keyword + '/Google_' + startYearStr
     upload(sourceDir, destDir)
     # sqs_send_msg(search_keyword)
