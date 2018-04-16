@@ -11,6 +11,7 @@ provider:
     DYNAMODB_TABLE: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}
     STAGE: ${opt:stage, self:provider.stage}
     TRIGGER_FUNCTION: trigger
+    SLACK_ACCESS_TOKEN: gIkuvaNzQIHg97ATvDxqgjtO
   iamRoleStatements:
     - Effect: Allow
       Action:

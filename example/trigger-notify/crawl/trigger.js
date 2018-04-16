@@ -5,9 +5,16 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 const FUNCTION_NAME = process.env.SERVICE_NAME + '-' + process.env.STAGE + '-' + process.env.TRIGGER_FUNCTION;
+const SLACK_ACCESS_TOKEN = process.env.SLACK_ACCESS_TOKEN;
 
 module.exports.trigger = (event, context, callback) => {
-  const keyword = event.keyword; // 검색할 키워드 입력 (구글에서 2008년 ~ 2018년 검색)
+  const GOT_ACCESS_TOKEN = event.token;
+  if (SLACK_ACCESS_TOKEN != GOT_ACCESS_TOKEN) {
+    callback(null, 'Access Token is Invalid');
+    return;
+  }
+
+  const keyword = event.text; // 검색할 키워드 입력 (구글에서 2008년 ~ 2018년 검색)
 
   // Use Lambda
   const lambda = new AWS.Lambda();
