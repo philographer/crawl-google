@@ -49,10 +49,16 @@ resources:
           -
             AttributeName: keyword
             AttributeType: S
+          -
+            AttributeName: years
+            AttributeType: S
         KeySchema:
           -
             AttributeName: keyword
             KeyType: HASH
+          -
+            AttributeName: years
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
