@@ -36,3 +36,10 @@ plugins:
 custom:
   pythonRequirements:
     dockerizePip: non-linux
+
+resources:
+  Resources:
+    S3BucketCrawlMondrian:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: ${self:provider.environment.SERVICE_NAME}
