@@ -3,6 +3,7 @@
 from icrawler.builtin import GoogleImageCrawler
 from datetime import date
 import boto3
+import os
 import os.path
 import sys
 
@@ -51,10 +52,21 @@ def upload(sourceDir, destDir):
 	except:
 	    print "upload error"
 
-def sqs_send_msg(keyword):
-    sqs_client = boto3.client('sqs')
-    sqs_client.send_message(QueueUrl='https://sqs.ap-northeast-2.amazonaws.com/989300825295/crawl-queue', MessageBody=keyword)
-    print "run sqs_send_msg success"
+def recordingStateToDynamoDB(keyword, years):
+    # Let's use Amazon DynamoDB
+    dynamo = boto3.client('dynamodb')
+    dynamo.put_item(
+        TableName = os.environ['DYNAMODB_TABLE'],
+        Item = {
+            'years': {
+                'S': years
+            },
+            'keyword': {
+                'S': keyword
+            }
+        }
+    )
+    print "recordingStateToDynamoDB excecuted successfully"
 
 def crawl(event, context):
     startYearStr = event['startYear'];
@@ -72,4 +84,4 @@ def crawl(event, context):
     # destination directory name (on s3)
     destDir = search_keyword + '/Google_' + startYearStr
     upload(sourceDir, destDir)
-    # sqs_send_msg(search_keyword)
+    recordingStateToDynamoDB(search_keyword, startYearStr)
