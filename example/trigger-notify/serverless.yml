@@ -34,8 +34,10 @@ functions:
           path: crawl
           method: post
           cors: true
-  crawlGoogle:
-    handler: crawl/crawlGoogle.crawlGoogle
+  notify:
+    handler: crawl/notify.notify
+    events:
+      - schedule: rate(1 minute)
 
 resources:
   Resources:
@@ -45,11 +47,11 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: startYear
+            AttributeName: keyword
             AttributeType: S
         KeySchema:
           -
-            AttributeName: startYear
+            AttributeName: keyword
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
