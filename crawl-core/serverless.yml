@@ -11,7 +11,7 @@ provider:
     DYNAMODB_TABLE: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}
     STAGE: ${opt:stage, self:provider.stage}
     BUCKET_NAME: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}
-    AWS_REGION_NAME: ${self:provider.region}
+    REGION: ${self:provider.region}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -36,7 +36,7 @@ plugins:
   - serverless-python-requirements
 custom:
   pythonRequirements:
-    dockerizePip: non-linux
+    dockerizePip: true
 
 resources:
   Resources:
