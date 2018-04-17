@@ -75,9 +75,14 @@ jobs:
           working_directory: ~/repo/crawl-core
           name: run tests
           command: |
-            python3 -m venv venv
             . venv/bin/activate
             python crawl/test_crawl.py
+
+    # run Install 
+      - run:
+          working_directory: ~/repo/crawl-core
+          name: sls plugin install
+          command: sls plugin install -n serverless-python-requirements
 
       - run: 
           working_directory: ~/repo/crawl-core
