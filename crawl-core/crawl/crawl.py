@@ -7,6 +7,10 @@ import os
 import os.path
 import sys
 
+# Korean Directory Name
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 # Fill these in - you get them when you sign up for S3
 AWS_ACCESS_KEY_ID = '' # Need To Insert or Use Env variables
 AWS_ACCESS_KEY_SECRET = '' # Need To Insert or Use Env variables
@@ -101,7 +105,7 @@ def removeStateToDynamoDB(keyword, years):
 def crawl(event, context):
     startYearStr = event['startYear'];
     print("startYear: " + str(int(startYearStr)))
-    search_keyword=str(event['keyword']) # searching keyword
+    search_keyword=str(unicode(event['keyword'])) # searching keyword
     filters = dict(
         date=((int(startYearStr), 1, 1), (int(startYearStr), 12, 31)),
     )
