@@ -39,7 +39,7 @@ jobs:
             - ~/repo/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
-      # run tests!
+      # run JS tests!
       - run: 
           working_directory: ~/repo/trigger-notify
           command: yarn test
@@ -49,3 +49,32 @@ jobs:
           working_directory: ~/repo/trigger-notify
           command: sls deploy
           name: sls deploy
+
+      - restore_cache:
+          working_directory: ~/repo/crawl-core
+          keys:
+          - v1-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          working_directory: ~/repo/crawl-core
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+
+      - save_cache:
+          working_directory: ~/repo/crawl-core
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "requirements.txt" }}
+
+      # run Python tests!
+      - run:
+          working_directory: ~/repo/crawl-core
+          name: run tests
+          command: |
+          . venv/bin/activate
+          python crawl/test_crawl.py
