@@ -34,10 +34,9 @@ jobs:
           
 
       - save_cache:
-          working_directory: ~/repo/trigger-notify
           paths:
-            - ~/repo/node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/repo/trigger-notify/node_modules
+          key: v1-dependencies-{{ checksum "trigger-notify/package.json" }}
         
       # run JS tests!
       - run: 
@@ -53,7 +52,7 @@ jobs:
       - restore_cache:
           working_directory: ~/repo/crawl-core
           keys:
-          - v1-dependencies-{{ checksum "requirements.txt" }}
+          - v1-dependencies-{{ checksum "crawl-core/requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -68,7 +67,7 @@ jobs:
       - save_cache:
           working_directory: ~/repo/crawl-core
           paths:
-            - ./venv
+            - ./crawl-core/venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       # run Python tests!
