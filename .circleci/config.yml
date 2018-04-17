@@ -60,7 +60,7 @@ jobs:
           working_directory: ~/repo/crawl-core
           name: install dependencies
           command: |
-            virtualenv venv
+            sudo virtualenv venv
             . venv/bin/activate
             pip install -r requirements.txt
 
