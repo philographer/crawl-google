@@ -56,8 +56,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: sudo pip uninstall virtualenv
-      - run: sudo pip install virtualenv
+      - run: sudo pip uninstall --yes virtualenv
+      - run: sudo pip install --yes virtualenv
 
       - run:
           working_directory: ~/repo/crawl-core
