@@ -12,6 +12,7 @@ provider:
     STAGE: ${opt:stage, self:provider.stage}
     CRAWL_CORE_FUNCTION: ${self:provider.environment.SERVICE_NAME}-core-${opt:stage, self:provider.stage}-crawl
     SLACK_ACCESS_TOKEN: XYNDWH9iaoLCsSmHyigWB6wm
+    AWS_REGION: ${self.provider.region}
   iamRoleStatements:
     - Effect: Allow
       Action:
