@@ -92,7 +92,7 @@ module.exports.notify = (event, context, callback) => {
   });
 };
 
-exports.slack_noti = function(keyword) {
+ function slack_noti(keyword) {
   let options = {
     method: "POST",
     url: SLACK_TARGET,
@@ -118,3 +118,5 @@ exports.slack_noti = function(keyword) {
     });
   })
 }
+
+exports.slack_noti = slack_noti;

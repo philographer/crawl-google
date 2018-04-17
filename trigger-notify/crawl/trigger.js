@@ -42,9 +42,9 @@ module.exports.trigger = (event, context, callback) => {
   });
 };
 
-exports.invokeLambdaFunction = function(body, invocationType) {
+ function invokeLambdaFunction(body, invocationType) {
   // Use Lambda
-  const lambda = new AWS.Lambda({region: process.env.AWS_REGION_NAME || 'ap-northeast-2'});
+  const lambda = new AWS.Lambda({region: process.env.REGION || 'ap-northeast-2'});
 
   let params = {
     FunctionName: CRAWL_CORE_FUNCTION_NAME, // the lambda function we are going to invoke
@@ -63,3 +63,5 @@ function sendResponse(_callback) {
     body: JSON.stringify(body),
   });
 }
+
+exports.invokeLambdaFunction = invokeLambdaFunction;
