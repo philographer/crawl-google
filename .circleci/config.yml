@@ -57,7 +57,7 @@ jobs:
           - v1-dependencies-
 
       - run: sudo pip uninstall --yes virtualenv
-      - run: sudo pip install --yes virtualenv
+      - run: sudo pip install virtualenv
 
       - run:
           working_directory: ~/repo/crawl-core
