@@ -31,7 +31,7 @@ functions:
   crawl:
     handler: crawl/crawl.crawl
     timeout: 300
-    
+
 # plugins:
   # - serverless-python-requirements
 # custom:
