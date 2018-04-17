@@ -38,7 +38,7 @@ custom:
   pythonRequirements:
     dockerizePip: ${env:CI, self:custom.isCI.false}
   isCI:
-    true: true
+    true: false
     false: non-linux
 
 resources:
