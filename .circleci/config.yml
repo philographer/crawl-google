@@ -21,22 +21,26 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          pwd: ~/repo/trigger-notify
+          working_directory: ~/repo/trigger-notify
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run: 
+          working_directory: ~/repo/trigger-notify
           name: yarn install
           command: yarn install
+          
 
       - save_cache:
+          working_directory: ~/repo/trigger-notify
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
       - run: 
+          working_directory: ~/repo/trigger-notify
           name: yarn test
           command: yarn test
