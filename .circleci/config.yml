@@ -29,8 +29,8 @@ jobs:
 
       - run: 
           working_directory: ~/repo/trigger-notify
-          name: yarn install
           command: yarn install
+          name: yarn install
           
 
       - save_cache:
@@ -42,5 +42,11 @@ jobs:
       # run tests!
       - run: 
           working_directory: ~/repo/trigger-notify
-          name: yarn test
           command: yarn test
+          name: yarn test
+
+      - run: npm install -g serverless
+      - run: 
+          working_directory: ~/repo/trigger-notify
+          command: sls deploy
+          name: sls deploy
