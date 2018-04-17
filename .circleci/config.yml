@@ -76,5 +76,11 @@ jobs:
           working_directory: ~/repo/crawl-core
           name: run tests
           command: |
-          . venv/bin/activate
-          python crawl/test_crawl.py
+            python3 -m venv venv
+            . venv/bin/activate
+            python crawl/test_crawl.py
+
+      - run: 
+          working_directory: ~/repo/crawl-core
+          command: sls deploy
+          name: sls deploy
