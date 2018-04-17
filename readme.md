@@ -70,10 +70,10 @@ $ npm run deploy # same with
 $ pip install awscli --upgrade --user
 
 # s3의 Bucket을 현재 local directory에 다운로드
-$ aws s3 sync s3://crawl-mondrian .
+$ aws s3 sync s3://crawl-mondrian-dev .
 
 # 현재 local directory의 내용을 Bucket으로 업로드 (없는 내용은 지움, local에서 삭제한 이미지는 Bucket에서도 삭제)
-$ aws s3 sync . s3://crawl-mondrian --delete
+$ aws s3 sync . s3://crawl-mondrian-dev --delete
 ```
 
 ## Grand Goal Architecture
