@@ -41,5 +41,6 @@ resources:
   Resources:
     S3BucketCrawlMondrian:
           Type: AWS::S3::Bucket
+          DeletionPolicy: Delete
           Properties:
             BucketName: ${self:provider.environment.SERVICE_NAME}

@@ -7,7 +7,7 @@ const request = require("request");
 
 // Const Variables
 const CRAWAL_START_YEAR = 2008;
-const CRAWAL_END_YEAR = new Date().getFullYear;
+const CRAWAL_END_YEAR = new Date().getFullYear();
 const SLACK_TARGET =
   "https://hooks.slack.com/services/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";
 
@@ -85,7 +85,7 @@ module.exports.notify = (event, context, callback) => {
             console.log("Batch delete successful ...");
             console.log(data); // successful response
           }
-          callback(null, "Success");
+          callback(null, "Batch delete successful ...");
         });
       }
     });
