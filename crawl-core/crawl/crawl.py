@@ -22,6 +22,8 @@ if os.environ.get('BUCKET_NAME') is not None:
 else:
     BUCKET_NAME = "crawl-google-dev"
 
+print("bucket name is" + BUCKET_NAME)
+
 if os.environ.get('DYNAMODB_TABLE') is not None:
     TABLE_NAME = os.environ['DYNAMODB_TABLE']
 else:
@@ -64,7 +66,8 @@ def upload(sourceDir, destDir):
     for filename in uploadFileNames:
         try:
                 sourcepath = os.path.join(sourceDir + filename)
-                print('sourcepath: '+ sourcepath)
+                print('sourcepath: ' + sourcepath)
+                print('destDir/filename: '+ destDir+'/'+filename)
                 bucket.upload_file(sourcepath, destDir+'/'+filename)
         except:
             print("upload error")

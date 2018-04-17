@@ -1,3 +1,6 @@
 {
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "deploy": "cd trigger-notify && npm install && sls deploy && cd ../crawl-core && sls deploy"
+  }
 }

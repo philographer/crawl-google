@@ -5,7 +5,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 provider:
   name: aws
   region: ap-northeast-2
-  runtime: python2.7
+  runtime: python3.6
   environment:
     SERVICE_NAME: crawl-google
     DYNAMODB_TABLE: ${self:provider.environment.SERVICE_NAME}-${opt:stage, self:provider.stage}

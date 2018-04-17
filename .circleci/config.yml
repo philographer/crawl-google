@@ -73,7 +73,7 @@ jobs:
           name: run tests
           command: python crawl/test_crawl.py
 
-    # run Install
+      # run Plugin Install
       - run:
           working_directory: ~/repo/crawl-core
           name: sls plugin install
