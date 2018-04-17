@@ -10,6 +10,7 @@ So I Designed crawling micro service architecture like this.
 6. The Cloud watch trigger to run `crawl-slack` lambda function.
 7. `crawl-slack` lambda function check if `crawl-queue`  has same 11 keyword (2008 ~ 2018, 11years).
 8. If `crawl-queue`  has same 11 keyword then `crawl-slack` remove keyword from `crawl-queue` then web hook to send slack message.
+
 ![implemented_architecture](./images/implemented_architecture.png)
 
 ## How To Use
