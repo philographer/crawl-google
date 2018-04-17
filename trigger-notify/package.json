@@ -12,6 +12,7 @@
     "request": "^2.83.0"
   },
   "devDependencies": {
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "jest": "^22.4.3"
   }
 }

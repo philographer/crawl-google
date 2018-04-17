@@ -1,11 +1,24 @@
-const trigger = require('./trigger');
+const SLACK_TARGET =
+  "https://hooks.slack.com/services/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";
+const request = require('request');
 
-const EVENT_TYPE = 'DryRun';
-const body = {
-    'keyword': 'Build & Test', // Food Name
-    'startYear': '2018'
-  }
+let options = {
+    method: "POST",
+    url: SLACK_TARGET,
+    headers: {
+      "Cache-Control": "no-cache",
+      "Content-Type": "application/json"
+    },
+    body: {
+      text: "Image Crawl " + "Hello" + " Finished",
+      icon_emoji: ":robot_face:"
+    },
+    json: true
+  };
 
-trigger.invokeLambdaFunction(body, EVENT_TYPE).then((res) => {
-    console.log('res is', res);
-});
+  request(options, function(error, response, body) {
+    if (error) {
+      throw new Error(error);
+    }
+    console.log(response.statusCode);
+  });

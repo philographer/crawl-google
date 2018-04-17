@@ -15,7 +15,7 @@ module.exports.notify = (event, context, callback) => {
   // 모든 키워드 가져와서 키워드대로 분류
   let keywordObj = {};
 
-  var params = {
+  let params = {
     TableName: process.env.DYNAMODB_TABLE
   };
 
@@ -71,7 +71,7 @@ module.exports.notify = (event, context, callback) => {
           toDeleteItemsArr.push(toDeleteItem);
         });
 
-        var deleteParams = {
+        let deleteParams = {
           RequestItems: {
             [process.env.DYNAMODB_TABLE]: toDeleteItemsArr
           }
@@ -92,8 +92,8 @@ module.exports.notify = (event, context, callback) => {
   });
 };
 
-function slack_noti(keyword) {
-  var options = {
+exports.slack_noti = function(keyword) {
+  let options = {
     method: "POST",
     url: SLACK_TARGET,
     headers: {
@@ -106,8 +106,15 @@ function slack_noti(keyword) {
     },
     json: true
   };
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-    console.log(body);
-  });
+
+  return new Promise((resolve, reject) => {
+    request(options, function(error, response, body) {
+      if (error) {
+        reject(error);
+        throw new Error(error);
+      }
+      console.log(body);
+      resolve(response);
+    });
+  })
 }
