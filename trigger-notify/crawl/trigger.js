@@ -33,8 +33,6 @@ module.exports.trigger = (event, context, callback) => {
     promiseArr.push(p);
     startYear++;
   }
-
-  let body = { "text": `Crawl ${keyword} Successfully executed` };
   
   // If Promise all resolved, then
   Promise.all(promiseArr).then(() => {
@@ -57,10 +55,12 @@ module.exports.trigger = (event, context, callback) => {
 }
 
 function sendResponse(_callback) {
+  let body = { "text": `Crawl ${keyword} Successfully executed` };
+  
   _callback(null, {
     statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: body,
   });
 }
 
