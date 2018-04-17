@@ -1,0 +1,13 @@
+{
+  "name": "crawl-core",
+  "version": "1.0.0",
+  "description": "Serverless Image Crawling Core",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {
+    "serverless-python-requirements": "^4.0.0"
+  }
+}
