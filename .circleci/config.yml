@@ -44,10 +44,10 @@ jobs:
           command: yarn test
           name: yarn test
 
-    #   - run: 
-        #   working_directory: ~/repo/trigger-notify
-        #   command: sls deploy
-        #   name: sls deploy
+      - run: 
+          working_directory: ~/repo/trigger-notify
+          command: sls deploy
+          name: sls deploy
 
       - restore_cache:
           working_directory: ~/repo/crawl-core
