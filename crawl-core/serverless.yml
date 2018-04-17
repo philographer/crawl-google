@@ -36,10 +36,7 @@ plugins:
   - serverless-python-requirements
 custom:
   pythonRequirements:
-    dockerizePip: ${env:CI, self:custom.isCI.false}
-  isCI:
-    true: false
-    false: non-linux
+    dockerizePip: false
 
 resources:
   Resources:
