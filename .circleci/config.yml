@@ -60,9 +60,9 @@ jobs:
           working_directory: ~/repo/crawl-core
           name: install dependencies
           command: |
-          virtualenv venv
-          . venv/bin/activate
-          pip install -r requirements.txt
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
 
       - save_cache:
           working_directory: ~/repo/crawl-core
@@ -75,20 +75,20 @@ jobs:
           working_directory: ~/repo/crawl-core
           name: run tests
           command: |
-          . venv/bin/activate
-          python crawl/test_crawl.py
+            . venv/bin/activate
+            python crawl/test_crawl.py
 
       # run Plugin Install
       - run:
           working_directory: ~/repo/crawl-core
           name: sls plugin install
           command: |
-          . venv/bin/activate
-          sls plugin install -n serverless-python-requirements
+            . venv/bin/activate
+            sls plugin install -n serverless-python-requirements
 
       - run: 
           working_directory: ~/repo/crawl-core
           name: sls deploy
           command: |
-          . venv/bin/activate
-          sls deploy
+            . venv/bin/activate
+            sls deploy
