@@ -61,7 +61,7 @@ jobs:
           name: install dependencies
           command: |
             mkdir -p ./venv
-            virtualenv ./venv
+            sudo virtualenv ./venv
             # . venv/bin/activate
             # pip install -r requirements.txt
 
