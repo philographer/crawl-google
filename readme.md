@@ -14,24 +14,48 @@ So I Designed crawling micro service architecture like this.
 ![implemented_architecture](./images/implemented_architecture.png)
 
 ## How To Use
-1. Click **Lambda** on AWS Console (You should have selected ap-northeast-2 region -> 서울)
-![how_to_use_1](./images/how_to_use_1.png)
+1. Clone Github Repo
+```bash
+$ git clone https://github.com/philographer/crawl-google.git
+```
 
-1. Click **trigger-crawl** in Lambda Dashboard
-![how_to_use_2](./images/how_to_use_2.png)
+1. Install Serverless Framework
+```bash
+# Installing the serverless cli
+$ npm install -g serverless
+```
 
-1. First. Please Edit `keyword` variable what you want to search.
-Second. Click **Save** Button
-Third. Click **Test** Button
-![how_to_use_3](./images/how_to_use_3.png)
+1. Set-up your Provider Credentials. [Watch the video on setting up credentials](https://www.youtube.com/watch?v=HSd9uYj2LJA)
 
-1. After a while, Slack Message would be sent to dev channel
-![how_to_use_4](./images/how_to_use_4.png)
+1. Deploy your Code
+```bash
+$ cd crawl-google
+$ npm run deploy # same with 
+```
 
-1. Then, Click **S3** on AWS Console
-![how_to_use_5](./images/how_to_use_5.png)
+1. Click **Lambda** on AWS Console
 
-1. Then, Click **crawl-mondrian** Bucket 
+1. **crawl-google-trigger-notify-dev-trigger** Click
+![how_to_use_dashboard](./images/how_to_use_dashboard.png)
+
+1. **테스트 이벤트 구성** Click
+![how_to_use_test_config1](./images/how_to_use_test_config1.png)
+
+1. Test Event name is **TriggerTest** and Insert Text like below. And Click “생성” 
+```json
+{
+"body": "text=김치&token=XYNDWH9iaoLCsSmHyigWB6wm"
+}
+```
+![how_to_use_test_config2](./images/how_to_use_test_config2.png)
+
+1. Then Select **TriggerTest**  And Click “테스트”
+![how_to_use_test_start](./images/how_to_use_test_start.png)
+
+1. Wait a 5minutes Then, Click **S3** on AWS Console
+![how_to_use_5](./images/how_to_use_5.png
+
+1. Then, Click **crawl-mondrian-dev** Bucket 
 ![how_to_use_6](./images/how_to_use_6.png)
 
 1. You can see crawled image.
