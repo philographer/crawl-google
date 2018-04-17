@@ -4,8 +4,10 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const querystring = require('querystring');
 
-const CRAWL_CORE_FUNCTION_NAME = process.env.CRAWL_CORE_FUNCTION;
+const CRAWL_CORE_FUNCTION_NAME = process.env.CRAWL_CORE_FUNCTION || 'crawl-google-core-dev-crawl';
 const SLACK_ACCESS_TOKEN = process.env.SLACK_ACCESS_TOKEN;
+
+const InvocationType = "Event"; // 'Event' | 'RequestResponse' | 'DryRun' ref: https://docs.aws.amazon.com/lambda/latest/dg/API_Invoke.html
 
 module.exports.trigger = (event, context, callback) => {
   const { text, token } = querystring.parse(event.body); // 검색할 키워드 입력 (구글에서 2008년 ~ 2018년 검색)
@@ -27,7 +29,7 @@ module.exports.trigger = (event, context, callback) => {
       'startYear': startYear + ''
     }
 
-    let p = invokeLambdaFunction(body);
+    let p = invokeLambdaFunction(body, InvocationType);
     promiseArr.push(p);
     startYear++;
   }
@@ -40,13 +42,13 @@ module.exports.trigger = (event, context, callback) => {
   });
 };
 
-function invokeLambdaFunction(body) {
+exports.invokeLambdaFunction = function(body, invocationType) {
   // Use Lambda
   const lambda = new AWS.Lambda();
 
   let params = {
     FunctionName: CRAWL_CORE_FUNCTION_NAME, // the lambda function we are going to invoke
-    InvocationType: 'Event', // 'Event' | 'RequestResponse' | 'DryRun' ref: https://docs.aws.amazon.com/lambda/latest/dg/API_Invoke.html
+    InvocationType: invocationType, // 'Event' | 'RequestResponse' | 'DryRun' ref: https://docs.aws.amazon.com/lambda/latest/dg/API_Invoke.html
     LogType: 'Tail',
     Payload: JSON.stringify(body),
   };
