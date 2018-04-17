@@ -81,14 +81,14 @@ jobs:
     # run Install
       - run:
           working_directory: ~/repo/crawl-core
-          name: |
+          name: sls plugin install
+          command: |
             . venv/bin/activate
-            sls plugin install
-          command: sls plugin install -n serverless-python-requirements
+            sls plugin install -n serverless-python-requirements
 
       - run: 
           working_directory: ~/repo/crawl-core
+          name: sls deploy
           command: |
             . venv/bin/activate
             sls deploy
-          name: sls deploy
