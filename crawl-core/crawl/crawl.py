@@ -27,8 +27,8 @@ if os.environ.get('DYNAMODB_TABLE') is not None:
 else:
     TABLE_NAME = "crawl-google-dev"
 
-if os.environ.get('AWS_REGION') is not None:
-    REGION = os.environ.get('AWS_REGION')
+if os.environ.get('AWS_REGION_NAME') is not None:
+    REGION = os.environ.get('AWS_REGION_NAME')
 else:
     REGION = 'ap-northeast-2'
 
