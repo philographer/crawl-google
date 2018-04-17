@@ -32,11 +32,11 @@ functions:
     handler: crawl/crawl.crawl
     timeout: 300
     
-plugins:
-  - serverless-python-requirements
-custom:
-  pythonRequirements:
-    dockerizePip: false
+# plugins:
+  # - serverless-python-requirements
+# custom:
+  # pythonRequirements:
+    # dockerizePip: false
 
 resources:
   Resources:
