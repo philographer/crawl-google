@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/python:2.7-stretch-node-browsers
+      - image: yoohoogun114/python-node-serverless
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -36,7 +36,7 @@ jobs:
       - save_cache:
           working_directory: ~/repo/trigger-notify
           paths:
-            - node_modules
+            - ~/repo/node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
@@ -45,7 +45,6 @@ jobs:
           command: yarn test
           name: yarn test
 
-      - run: sudo npm install -g serverless
       - run: 
           working_directory: ~/repo/trigger-notify
           command: sls deploy
