@@ -36,7 +36,7 @@ module.exports.trigger = (event, context, callback) => {
   
   // If Promise all resolved, then
   Promise.all(promiseArr).then(() => {
-    sendResponse(callback);
+    sendResponse(callback, keyword);
   });
 };
 
@@ -54,7 +54,7 @@ module.exports.trigger = (event, context, callback) => {
   return lambda.invoke(params).promise();
 }
 
-function sendResponse(_callback) {
+function sendResponse(_callback, keyword) {
   let body = { "text": `Crawl ${keyword} Successfully executed` };
   
   _callback(null, {

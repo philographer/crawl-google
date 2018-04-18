@@ -1,15 +1,15 @@
 ## Implemented Architecture Overview
 Our Team Need to Image Crawling service for image learning.
 
-So I Designed crawling micro service architecture like this.
-1. user manually run Lambda Function named `trigger-crawl`
-2. `trigger-crawl` function trigger  multiple `crawl-google` function `crawl-google` called multiple times with different arguments
-3. `crawl-google` function crawl images from google, and then upload images to `crawl-google-dev` s3 bucket
-4. If `crawl-google` function ended then send message to `crawl-queue` SQS. 
-5. Every 1 minute, Cloud watch event rule automatically triggered by reservation. 
-6. The Cloud watch trigger to run `crawl-slack` lambda function.
-7. `crawl-slack` lambda function check if `crawl-queue`  has same 11 keyword (2008 ~ 2018, 11years).
-8. If `crawl-queue`  has same 11 keyword then `crawl-slack` remove keyword from `crawl-queue` then web hook to send slack message.
+So I Designed crawling micro service architecture like this
+1. user manually run Lambda Function named `trigger`
+2. `trigger` function trigger multiple `crawl-core` with different arguments(2008 ~ 2018, 11years with same keyword)
+3. `crawl-core` function crawl images from google, and then upload images to `crawl-google-dev` s3 bucket
+4. If `crawl-core` function ended then PutItem into DynamoDB named `crawl-google-dev`
+5. Every 1 minute, Cloud watch event rule automatically triggered by reservation
+6. The Cloud watch trigger to run `crawl-slack` lambda function
+7. `notify` lambda function check if `crawl-google-dev` DynamoDB has same 11 keyword (2008 ~ 2018, 11years)
+8. If `crawl-google-dev` DynamoDB has 11 same keyword(2008 ~ 2018, 11years) then `notify` lambda function remove keyword from `crawl-google-dev` DynamoDB and then inform to slack
 
 ![implemented_architecture](./images/implemented_architecture.png)
 
@@ -24,12 +24,14 @@ $ npm install -g serverless
 # !!!!!!!!!!!!!!!!!Watch the video: https://www.youtube.com/watch?v=HSd9uYj2LJA!!!!!!!!!!!!!!!!!
 $ serverless config credentials --provider aws --key [YOUR-ACCESS-KEY] --secret [YOUR-SECRET-KEY]
 
+# Change Working Directory
+$ cd crawl-google
+
 # Install dependency
-$ npm run install-dep
+$ npm run dependency
 
 # Deploy your Code
-$ cd crawl-google
-$ npm run deploy # same with 
+$ npm run deploy
 ```
 
 
