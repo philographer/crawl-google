@@ -33,6 +33,12 @@ $ cd ..
 # Current working dir should be `crawl-google`
 $ pwd # /Users/yuhogyun/Desktop/crawl-google
 
+# Install Serverless Plugin
+$ cd crawl-core && sls plugin install -n serverless-python-requirements
+
+# change dir to crawl-google
+$ cd ..
+
 # Deploy your Code
 $ cd crawl-google
 $ npm run deploy # same with 
