@@ -24,6 +24,14 @@ $ npm install -g serverless
 # Watch the video: https://www.youtube.com/watch?v=HSd9uYj2LJA
 $ serverless config credentials --provider aws --key [YOUR-ACCESS-KEY] --secret [YOUR-SECRET-KEY]
 
+# Install dependency
+$ cd trigger-notify && npm install
+
+# change dir to crawl-google
+$ cd ..
+
+# Current working dir should be `crawl-google`
+$ pwd # /Users/yuhogyun/Desktop/crawl-google
 
 # Deploy your Code
 $ cd crawl-google
