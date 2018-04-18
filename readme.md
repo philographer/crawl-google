@@ -30,15 +30,11 @@ $ cd crawl-google
 $ npm run deploy # same with 
 ```
 
-- **Click `Lambda` on AWS Console**
-- **`crawl-google-trigger-notify-dev-trigger` Click**
+
 ![how_to_use_dashboard](./images/how_to_use_dashboard.png)
-
-- **`테스트 이벤트 구성` Click**
 ![how_to_use_test_config1](./images/how_to_use_test_config1.png)
-
-- **Test Event name is `TriggerTest` and Insert Text like below. And Click `생성`**
 ```json
+// Test Event name is `TriggerTest` and Insert Text like below. And Click `생성`
 {
 "body": "text=김치&token=XYNDWH9iaoLCsSmHyigWB6wm"
 }
