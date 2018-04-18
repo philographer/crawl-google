@@ -21,23 +21,11 @@ $ git clone https://github.com/philographer/crawl-google.git
 # Install Serverless Framework
 $ npm install -g serverless
 
-# Watch the video: https://www.youtube.com/watch?v=HSd9uYj2LJA
+# !!!!!!!!!!!!!!!!!Watch the video: https://www.youtube.com/watch?v=HSd9uYj2LJA!!!!!!!!!!!!!!!!!
 $ serverless config credentials --provider aws --key [YOUR-ACCESS-KEY] --secret [YOUR-SECRET-KEY]
 
 # Install dependency
-$ cd trigger-notify && npm install
-
-# change dir to crawl-google
-$ cd ..
-
-# Current working dir should be `crawl-google`
-$ pwd # /Users/yuhogyun/Desktop/crawl-google
-
-# Install Serverless Plugin
-$ cd crawl-core && sls plugin install -n serverless-python-requirements
-
-# change dir to crawl-google
-$ cd ..
+$ npm run install-dep
 
 # Deploy your Code
 $ cd crawl-google

@@ -1,6 +1,7 @@
 {
   "devDependencies": {},
   "scripts": {
+    "dependency": "cd trigger-notify && npm install && cd ../crawl-core && sls plugin install -n serverless-python-requirements",
     "deploy": "cd trigger-notify && npm install && sls deploy && cd ../crawl-core && sls deploy"
   }
 }
