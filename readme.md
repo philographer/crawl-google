@@ -4,7 +4,7 @@ Our Team Need to Image Crawling service for image learning.
 So I Designed crawling micro service architecture like this.
 1. user manually run Lambda Function named `trigger-crawl`
 2. `trigger-crawl` function trigger  multiple `crawl-google` function `crawl-google` called multiple times with different arguments
-3. `crawl-google` function crawl images from google, and then upload images to `crawl-mondrian` s3 bucket
+3. `crawl-google` function crawl images from google, and then upload images to `crawl-google-dev` s3 bucket
 4. If `crawl-google` function ended then send message to `crawl-queue` SQS. 
 5. Every 1 minute, Cloud watch event rule automatically triggered by reservation. 
 6. The Cloud watch trigger to run `crawl-slack` lambda function.
@@ -14,27 +14,23 @@ So I Designed crawling micro service architecture like this.
 ![implemented_architecture](./images/implemented_architecture.png)
 
 ## How To Use
-- **Clone Github Repo**
 ```bash
+# Clone Github Repo
 $ git clone https://github.com/philographer/crawl-google.git
-```
 
-- **Install Serverless Framework**
-```bash
-# Installing the serverless cli
+# Install Serverless Framework
 $ npm install -g serverless
-```
 
-- **Set-up your Provider Credentials.** [Watch the video on setting up credentials](https://www.youtube.com/watch?v=HSd9uYj2LJA)
+# Watch the video: https://www.youtube.com/watch?v=HSd9uYj2LJA
+$ serverless config credentials --provider aws --key [YOUR-ACCESS-KEY] --secret [YOUR-SECRET-KEY]
 
-- **Deploy your Code**
-```bash
+
+# Deploy your Code
 $ cd crawl-google
 $ npm run deploy # same with 
 ```
 
 - **Click `Lambda` on AWS Console**
-
 - **`crawl-google-trigger-notify-dev-trigger` Click**
 ![how_to_use_dashboard](./images/how_to_use_dashboard.png)
 
@@ -55,7 +51,7 @@ $ npm run deploy # same with
 - **Wait a 5minutes Then, Click `S3` on AWS Console**
 ![how_to_use_5](./images/how_to_use_5.png)
 
-- **Then, Click `crawl-mondrian-dev` Bucket**
+- **Then, Click `crawl-google-dev` Bucket**
 ![how_to_use_6](./images/how_to_use_6.png)
 
 - **You can see crawled image.**
@@ -70,10 +66,10 @@ $ npm run deploy # same with
 $ pip install awscli --upgrade --user
 
 # s3의 Bucket을 현재 local directory에 다운로드
-$ aws s3 sync s3://crawl-mondrian-dev .
+$ aws s3 sync s3://crawl-google-dev .
 
 # 현재 local directory의 내용을 Bucket으로 업로드 (없는 내용은 지움, local에서 삭제한 이미지는 Bucket에서도 삭제)
-$ aws s3 sync . s3://crawl-mondrian-dev --delete
+$ aws s3 sync . s3://crawl-google-dev --delete
 ```
 
 ## Grand Goal Architecture
